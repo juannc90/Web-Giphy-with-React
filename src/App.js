@@ -1,25 +1,65 @@
-import logo from './logo.svg';
 import './App.css';
+import Nav from './components/Nav'
+import Gif from './components/Gif'
+import './app2.css'
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class AppGif extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { gif: [] }
+  }
+  async apiCall(url, consecuencia) {
+    try {
+      const response = await fetch(url)
+      const { data } = await response.json()
+      consecuencia(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  traerGifNuevo() {
+    this.apiCall("https://api.giphy.com/v1/gifs/trending?&api_key=g1jSo67YlVnln4pzWogGhjSqoj4woFw3", this.mostrarGifs)
+    console.log('Gifs Nuevos!')
+  }
+  componentDidMount() {
+    console.log("Me monté")
+    this.traerGifNuevo()
+  }
+  mostrarGifs = (data) => {
+    this.setState(
+      {
+        gif: data.map(image => image),
+      }
+    )
+  }
+  componentDidUpdate() {
+    console.log("Me actualicé")
+  }
+  render() {
+    console.log("Estoy renderizando")
+    return (
+      <div>
+        <Nav 
+        tarea= {this.traerGifNuevo()}/>
+        <div className='container'>
+          <div className='row text-center'>
+            {this.state.gif.map((singleGif, i) => {
+              return <Gif
+                contenido={singleGif.images.downsized.url}
+                titulo={singleGif.title}
+                key={singleGif.title + i}
+              />
+            })}
+          </div>
+        </div>
+        <button onClick={() => this.traerGifNuevo()}>Random Gif!</button>
+      </div>
+    )
+  }
 }
 
-export default App;
+export default AppGif;
+
