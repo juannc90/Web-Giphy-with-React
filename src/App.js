@@ -43,7 +43,8 @@ class AppGif extends Component {
     return (
       <div>
         <Nav 
-        tarea= {this.traerGifNuevo()}/>
+        // tarea= {this.traerGifNuevo()}
+        />
         <div className='container'>
           <div className='row text-center'>
             {this.state.gif.map((singleGif, i) => {
@@ -55,7 +56,7 @@ class AppGif extends Component {
             })}
           </div>
         </div>
-        <button onClick={() => this.traerGifNuevo()}>Random Gif!</button>
+        {/* <button onClick={() => this.traerGifNuevo()}>Random Gif!</button> */}
       </div>
     )
   }

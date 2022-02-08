@@ -13,7 +13,9 @@ function Nav(props) {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="nav ml-auto">
                             <li className="nav-item">
-                                <button className="btn btn-success" onClick={() => props.tarea}>Cargar random</button>
+                                <button className="btn btn-success"
+                                // onClick={() => props.tarea}
+                                >Cargar random</button>
                             </li>
                         </ul>
                     </div>
